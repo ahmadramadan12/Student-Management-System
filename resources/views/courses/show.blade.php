@@ -2,11 +2,27 @@
 
 @section('content')
     <h1>{{ $course->course_name }}</h1>
+    <p>Instructor: {{ $course->instructor_name }}</p>
+    
+    <h2>Grades</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Partial Grade</th>
+                <th>Final Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($course->grades as $grade)
+                <tr>
+                    <td>{{ $grade->student->name }}</td>
+                    <td>{{ $grade->partial_grade }}</td>
+                    <td>{{ $grade->final_grade }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 
-    <p><strong>Instructor:</strong> {{ $course->instructor_name }}</p>
-    <p><strong>Student:</strong> {{ $course->student->name }}</p>
-    <p><strong>Created At:</strong> {{ $course->created_at }}</p>
-    <p><strong>Updated At:</strong> {{ $course->updated_at }}</p>
-
-    <a href="{{ route('courses.index') }}">Back to Course List</a>
+    <a href="{{ route('grades.create', ['course_id' => $course->id]) }}">Add Grade</a>
 @endsection

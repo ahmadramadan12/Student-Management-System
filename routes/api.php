@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\http\Controllers\API\StudentController;
 use App\http\Controllers\API\CourseController;
-
+use App\http\Controllers\API\GradeController;
 
 
 /*
@@ -40,3 +40,10 @@ Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('cour
 
 Route::get('/students/{student}/courses', [CourseController::class, 'coursesByStudent'])->name('students.courses');
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
+
+Route::get('/grades/create', [GradeController::class, 'create'])->name('grades.create');
+Route::post('/grades', [GradeController::class, 'store'])->name('grades.store');
+Route::get('/grades', [GradeController::class, 'index'])->name('grades.index');
+
+Route::get('/grades/{grade}/edit', [GradeController::class, 'edit'])->name('grades.edit');
+Route::put('/grades/{grade}', [GradeController::class, 'update'])->name('grades.update');

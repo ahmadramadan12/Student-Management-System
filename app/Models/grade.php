@@ -4,22 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\course;
+use App\Models\Grade;
 
-class Course extends Model
+class Grade extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['student_id', 'course_name', 'instructor_name'];
+    protected $fillable = ['course_id', 'student_id', 'partial_grade', 'final_grade'];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 
     public function student()
     {
         return $this->belongsTo(Student::class);
     }
-
-    public function grades()
-{
-    return $this->hasMany(Grade::class);
-}
-
 }
