@@ -15,10 +15,8 @@ class GradeController extends Controller
      */
     public function index()
     {
-        // Retrieve all grades with related students and courses
+    
         $grades = Grade::with(['student', 'course'])->get();
-
-        // Return the view with grades data
         return view('grades.index', compact('grades'));
     }
     
@@ -56,8 +54,8 @@ class GradeController extends Controller
      */
     public function show($id)
     {
-        $course = Course::with('grades')->findOrFail($id); // Fetch the course with its grades
-        return view('courses.show', compact('course')); // Pass the course to the view
+        $course = Course::with('grades')->findOrFail($id); 
+        return view('courses.show', compact('course'));
     }
     
 
@@ -66,10 +64,10 @@ class GradeController extends Controller
      */
     public function edit($id)
     {
-        $grade = Grade::findOrFail($id); // Find the grade by ID
-        $students = Student::all(); // Get all students
-        $courses = Course::all(); // Get all courses
-        return view('grades.edit', compact('grade', 'students', 'courses')); // Pass them to the view
+        $grade = Grade::findOrFail($id); 
+        $students = Student::all(); 
+        $courses = Course::all(); 
+        return view('grades.edit', compact('grade', 'students', 'courses')); 
     }
     
 

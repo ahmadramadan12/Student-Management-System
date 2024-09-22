@@ -14,7 +14,7 @@ class CourseController extends Controller
      */
     public function index()
 {
-    $courses = Course::with('student')->get(); // Eager load students for each course
+    $courses = Course::with('student')->get(); 
     return view('courses.index', compact('courses'));
 }
 
@@ -24,7 +24,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        $students = Student::all(); // Fetch all students to populate the dropdown
+        $students = Student::all();
         return view('courses.create', compact('students'));
     }
 
@@ -33,17 +33,14 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request data
+       
         $request->validate([
             'student_id' => 'required|exists:students,id',
             'course_name' => 'required|string',
             'instructor_name' => 'required|string',
         ]);
 
-        // Create the course using the validated data
         Course::create($request->all());
-
-        // Redirect back to the courses list with a success message
         return redirect()->route('courses.index')->with('success', 'Course created successfully!');
     }
 
@@ -98,7 +95,7 @@ public function show($id)
 public function coursesByStudent($studentId)
 {
     $student = Student::findOrFail($studentId);
-    $courses = $student->courses; // Assuming the Student model has a 'courses' relationship
+    $courses = $student->courses; 
     return view('courses.by_student', compact('student', 'courses'));
 }
 
