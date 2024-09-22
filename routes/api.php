@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\http\Controllers\API\StudentController;
+use App\http\Controllers\API\CourseController;
 
 
 
@@ -27,3 +28,15 @@ Route::put('/students/{id}', [StudentController::class, 'update'])->name('studen
 Route::delete('/students/{id}', [StudentController::class, 'destroy'])->name('students.destroy');
 
 Route::get('/students/{id}', [StudentController::class, 'show'])->name('students.show');
+
+Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
+Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
+Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
+
+Route::get('/courses/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
+Route::put('/courses/{id}', [CourseController::class, 'update'])->name('courses.update');
+
+Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('courses.destroy');
+
+Route::get('/students/{student}/courses', [CourseController::class, 'coursesByStudent'])->name('students.courses');
+Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
