@@ -14,9 +14,9 @@ class student extends Model
     protected $fillable =['name','email','date_of_birth'];
 
     public function courses()
-{
-    return $this->hasMany(Course::class);
-}
+    {
+        return $this->belongsToMany(Course::class, 'course_student');
+    }
 
 public function grades()
 {

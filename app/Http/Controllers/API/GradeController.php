@@ -4,9 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\grade;
-use App\Models\course;
-use App\Models\student;
+use App\Models\Grade;
+use App\Models\Course;
+use App\Models\Student;
 
 class GradeController extends Controller
 {
@@ -15,12 +15,9 @@ class GradeController extends Controller
      */
     public function index()
     {
-    
         $grades = Grade::with(['student', 'course'])->get();
         return view('grades.index', compact('grades'));
     }
-    
-
 
     /**
      * Show the form for creating a new resource.
@@ -54,22 +51,20 @@ class GradeController extends Controller
      */
     public function show($id)
     {
-        $course = Course::with('grades')->findOrFail($id); 
+        $course = Course::with('grades')->findOrFail($id);
         return view('courses.show', compact('course'));
     }
-    
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit($id)
     {
-        $grade = Grade::findOrFail($id); 
-        $students = Student::all(); 
-        $courses = Course::all(); 
-        return view('grades.edit', compact('grade', 'students', 'courses')); 
+        $grade = Grade::findOrFail($id);
+        $students = Student::all();
+        $courses = Course::all();
+        return view('grades.edit', compact('grade', 'students', 'courses'));
     }
-    
 
     /**
      * Update the specified resource in storage.
@@ -79,21 +74,13 @@ class GradeController extends Controller
         $request->validate([
             'student_id' => 'required|exists:students,id',
             'course_id' => 'required|exists:courses,id',
-            'partial_grade' => 'required|numeric',
-            'final_grade' => 'required|numeric',
+            'partial_grade' => 'required|numeric|min:0|max:100',
+            'final_grade' => 'required|numeric|min:0|max:100',
         ]);
     
         $grade = Grade::findOrFail($id);
         $grade->update($request->all());
     
         return redirect()->route('grades.index')->with('success', 'Grade updated successfully!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

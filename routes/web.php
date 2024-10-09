@@ -16,3 +16,7 @@ use App\http\Controllers\API\StudentController;
 
 
 
+Route::get('/', function () {
+    return view('welcome'); // or any other view you want to return
+})->name('home');
+

@@ -38,7 +38,7 @@ Route::put('/courses/{id}', [CourseController::class, 'update'])->name('courses.
 
 Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('courses.destroy');
 
-Route::get('/students/{student}/courses', [CourseController::class, 'coursesByStudent'])->name('students.courses');
+Route::get('/students/{student}/courses', [CourseController::class, 'coursesByStudent'])->name('courses.by_student');
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
 
 Route::get('/grades/create', [GradeController::class, 'create'])->name('grades.create');

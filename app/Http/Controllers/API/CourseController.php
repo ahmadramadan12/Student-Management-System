@@ -48,11 +48,11 @@ class CourseController extends Controller
      * Display the specified resource.
      */
   
-public function show($id)
-{
+    public function show($id)
+    {
     $course = Course::with('student')->findOrFail($id);
     return view('courses.show', compact('course'));
-}
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -85,12 +85,12 @@ public function show($id)
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-{
+    {
     $course = Course::findOrFail($id);
     $course->delete();
 
     return redirect()->route('courses.index')->with('success', 'Course deleted successfully!');
-}
+    }
 
 public function coursesByStudent($studentId)
 {

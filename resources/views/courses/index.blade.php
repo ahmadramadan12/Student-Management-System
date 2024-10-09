@@ -16,7 +16,7 @@
                 (Student: {{ $course->student->name }})
                 <a href="{{ route('courses.edit', $course->id) }}">Edit</a>
                 
-                <!-- Delete Form -->
+        
                 <form action="{{ route('courses.destroy', $course->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
