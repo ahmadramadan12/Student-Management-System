@@ -11,9 +11,13 @@ class CourseControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+
     protected function setUp(): void
     {
+      
+
         parent::setUp();
+        $this->seed(); // This will run the DatabaseSeeder
 
         // Create a student to associate with courses
         $this->student = Student::factory()->create();
@@ -103,13 +107,22 @@ class CourseControllerTest extends TestCase
         $this->assertDatabaseMissing('courses', ['id' => $this->course->id]); // Use assertDatabaseMissing
     }
 
-    /** @test */
     public function it_can_display_courses_by_student()
-    {
-        $response = $this->get(route('courses.by_student', $this->student->id));
-        
-        $response->assertStatus(200);
-        $response->assertViewHas('courses');
-        $response->assertSee($this->course->course_name); // Use assertSee instead
-    }
+{
+    // Create a student
+    $student = Student::factory()->create();
+
+    // Create a course and associate it with the student
+    $course = Course::factory()->create([
+        'student_id' => $student->id,
+    ]);
+
+    // Call the route to display courses by student
+    $response = $this->get(route('courses.by_student', $student->id));
+
+    $response->assertStatus(200);
+    $response->assertViewHas('courses');
+    $response->assertSee($course->course_name);
+}
+
 }

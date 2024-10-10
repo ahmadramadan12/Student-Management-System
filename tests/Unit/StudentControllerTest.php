@@ -8,11 +8,13 @@ use App\Models\Student;
 
 class StudentControllerTest extends TestCase
 {
-    use RefreshDatabase; // This will refresh the database for each test
+    use RefreshDatabase;
+ // This will refresh the database for each test
 
     protected function setUp(): void
     {
         parent::setUp();
+        $this->seed(); // This will run the DatabaseSeeder
         // Optionally, you can seed the database here if needed
     }
 

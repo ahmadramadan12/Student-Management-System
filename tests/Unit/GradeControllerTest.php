@@ -19,6 +19,7 @@ class GradeControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->seed(); // This will run the DatabaseSeeder
 
         // Create a student
         $this->student = Student::factory()->create();
